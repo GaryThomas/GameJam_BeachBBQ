@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Hazard
   - CrowdMember
+  - Environment
   layers:
   - Default
   - TransparentFX
@@ -40,6 +41,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3700547785
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Foreground
+    uniqueID: 2249828563
     locked: 0
