@@ -9,6 +9,7 @@ TagManager:
   - Environment
   - Police
   - Beach
+  - Patrol
   layers:
   - Default
   - TransparentFX

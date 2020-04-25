@@ -322,6 +322,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7275197120680157676}
   - component: {fileID: 7275197120382257227}
+  - component: {fileID: 264828186}
   m_Layer: 0
   m_Name: PoliceVan
   m_TagString: Police
@@ -336,9 +337,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7275197120679935436}
-  m_LocalRotation: {x: -0, y: 0.76040596, z: -0, w: 0.6494481}
+  m_LocalRotation: {x: 0, y: 0.76040596, z: 0, w: 0.6494481}
   m_LocalPosition: {x: 1.5616074, y: -2.7695305, z: 0}
-  m_LocalScale: {x: 1.2000003, y: 1.3, z: 1.5000005}
+  m_LocalScale: {x: 1.2000008, y: 1.3, z: 1.500001}
   m_Children:
   - {fileID: 7275197120680157678}
   - {fileID: 7275197120680157674}
@@ -374,6 +375,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 11.953562, y: 1.6590493}
   m_EdgeRadius: 0
+--- !u!114 &264828186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7275197120679935436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c15390e1cf8af45e5ae7949ae43150b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  patrolTimePerLeg: 3
+  wayPointPauseTime: 0.5
+  wayPointFuzz: 0.1
 --- !u!1 &7275197120679935438
 GameObject:
   m_ObjectHideFlags: 0

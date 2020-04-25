@@ -9,7 +9,6 @@ public class Police : MonoBehaviour {
 
     private int _currentWP = 0;
     private GameController _gc;
-    private Vector3 _oldPos;
 
     private void Start() {
         _gc = GameController.Instance;
@@ -19,7 +18,6 @@ public class Police : MonoBehaviour {
     private void BeginLevel() {
         _currentWP = 0;
         transform.position = wayPoints[_currentWP].transform.position;
-        _oldPos = transform.position;
         StartCoroutine(PatrolRoutine());
     }
 
