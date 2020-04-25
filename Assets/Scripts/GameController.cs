@@ -34,14 +34,14 @@ public class GameController : Singleton<GameController> {
     }
 
     IEnumerator InitGame() {
-        Debug.Log("GameCOntroller: InitGame");
+        Debug.Log("GameController: InitGame");
         _state = GameState.GameInit;
         OnInitGame?.Invoke();
         yield return null;
     }
 
     IEnumerator BeginLevel() {
-        Debug.Log("GameCOntroller: BeginLevel");
+        Debug.Log("GameController: BeginLevel");
         if (OnBeginLevel != null) {
             OnBeginLevel.Invoke();
         } else {
@@ -53,7 +53,7 @@ public class GameController : Singleton<GameController> {
     }
 
     IEnumerator PlayLevel() {
-        Debug.Log("GameCOntroller: PlayLevel");
+        Debug.Log("GameController: PlayLevel");
         if (OnPlayLevel != null) {
             OnPlayLevel.Invoke();
         } else {
@@ -65,7 +65,7 @@ public class GameController : Singleton<GameController> {
     }
 
     IEnumerator EndLevel() {
-        Debug.Log("GameCOntroller: EndLevel");
+        Debug.Log("GameController: EndLevel");
         if (OnEndLevel != null) {
             OnEndLevel.Invoke();
         } else {
