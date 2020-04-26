@@ -9,10 +9,12 @@ public class Police : MonoBehaviour {
 
     private int _currentWP = 0;
     private GameController _gc;
+    private BeachBBQ _game;
 
     private void Start() {
         _gc = GameController.Instance;
         _gc.OnBeginLevel += BeginLevel;
+        _game = BeachBBQ.Instance;
     }
 
     private void OnDestroy() {
@@ -28,7 +30,7 @@ public class Police : MonoBehaviour {
     IEnumerator PatrolRoutine() {
         bool atWP = true;
         while (true) {
-            if (atWP) {
+            if (_game.Playing && atWP) {
                 yield return new WaitForSeconds(wayPointPauseTime);
                 int nextWP = _currentWP + 1;
                 if (nextWP >= wayPoints.Length) {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public enum StatsType {
     Followers,
@@ -20,15 +21,38 @@ public struct Stat {
 
 public class BeachBBQ : Singleton<BeachBBQ> {
     [SerializeField] Stat[] stats;
+    [SerializeField] GameObject initScreen;
+    [SerializeField] GameObject initFrame;
+
+    public bool Playing { get { return _playing; } }
 
     private GameController _gc;
+    private bool _playing;
 
     public override void Awake() {
         base.Awake();
         _gc = GameController.Instance;
+        _gc.OnInitGame += InitGame;
         foreach (Stat stat in stats) {
             stat.container.SetActive(false);
         }
+        initScreen.SetActive(true);
+        initFrame.transform.localScale = Vector3.zero;
+    }
+
+    private void InitGame() {
+        Debug.Log("BeachBBQ - Init Game");
+        LeanTween.delayedCall(1.0f, () => {
+            LeanTween.scale(initFrame, Vector3.one, 0.5f);
+        });
+    }
+
+    public void StartGame() {
+        LeanTween.scale(initFrame, Vector3.zero, 0.5f).setOnComplete(() => {
+            _gc.UpdateGameState(GameState.GameInitComplete);
+            _playing = true;
+            initScreen.SetActive(false);
+        });
     }
 
     public void ChangeStat(StatsType type, int delta) {

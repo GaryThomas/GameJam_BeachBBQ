@@ -41,8 +41,14 @@ public class GameController : Singleton<GameController> {
     IEnumerator InitGame() {
         Debug.Log("GameController: InitGame");
         _state = GameState.GameInit;
-        OnInitGame?.Invoke();
-        yield return null;
+        if (OnInitGame != null) {
+            OnInitGame.Invoke();
+        } else {
+            _state = GameState.GameInitComplete;
+        }
+        while (_state != GameState.GameInitComplete) {
+            yield return null;
+        }
     }
 
     IEnumerator BeginLevel() {
