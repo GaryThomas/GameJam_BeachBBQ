@@ -86,6 +86,7 @@ public class CrowdMember : MonoBehaviour {
             }
             _captured = true;
             _game.ChangeStat(StatsType.Captured, +1);
+            _game.CrowdMemberCaptured();
             Destroy(gameObject);
             Debug.Log("Picked up by the Police!");
         } else if (other.gameObject.tag == "Patrol") {

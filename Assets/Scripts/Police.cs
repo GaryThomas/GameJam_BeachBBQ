@@ -1,20 +1,24 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Police : MonoBehaviour {
     [SerializeField] Transform[] wayPoints;
     [SerializeField] float patrolTimePerLeg = 1.5f;
     [SerializeField] float wayPointPauseTime = 0.5f;
     [SerializeField] float wayPointFuzz = 0.1f;
+    [SerializeField] AudioClip warningClip;
 
     private int _currentWP = 0;
     private GameController _gc;
     private BeachBBQ _game;
+    private AudioSource _audio;
 
     private void Start() {
         _gc = GameController.Instance;
         _gc.OnBeginLevel += BeginLevel;
         _game = BeachBBQ.Instance;
+        _audio = GetComponent<AudioSource>();
     }
 
     private void OnDestroy() {
@@ -59,6 +63,9 @@ public class Police : MonoBehaviour {
                 atWP = false;
                 LeanTween.move(gameObject, wayPoints[nextWP].position, patrolTimePerLeg).setOnComplete(() => { atWP = true; });
                 _currentWP = nextWP;
+                if (warningClip != null) {
+                    _audio.PlayOneShot(warningClip);
+                }
             } else {
                 yield return null;
             }
