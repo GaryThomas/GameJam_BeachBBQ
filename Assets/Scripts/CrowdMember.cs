@@ -42,6 +42,7 @@ public class CrowdMember : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
+        Debug.Log("CrowdMember touched by " + other.gameObject.tag + " (" + other.gameObject.name + ")");
         if (other.gameObject.tag == "Player") {
             if (!_following && !_beached) {
                 _following = true;

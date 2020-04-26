@@ -36,17 +36,17 @@ public class Police : MonoBehaviour {
                 if (Mathf.Abs(delta.y) <= wayPointFuzz) {
                     // Moving left/right
                     if (delta.x >= 0) {
-                        transform.rotation = Quaternion.Euler(0, 90f, 0);
+                        transform.rotation = Quaternion.Euler(0, 0, 0);
                     } else {
-                        transform.rotation = Quaternion.Euler(0, -90f, 0);
+                        transform.rotation = Quaternion.Euler(-180f, 0, 180);
                     }
                 } else {
                     if (Mathf.Abs(delta.x) <= wayPointFuzz) {
                         // Moving left/right
                         if (delta.y >= 0) {
-                            transform.rotation = Quaternion.Euler(-90f, 0, 90f);
+                            transform.rotation = Quaternion.Euler(0, 0, 90f);
                         } else {
-                            transform.rotation = Quaternion.Euler(90f, 0, -90f);
+                            transform.rotation = Quaternion.Euler(180f, 0, 90f);
                         }
                     }
                 }
