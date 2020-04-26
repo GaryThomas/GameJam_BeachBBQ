@@ -12,6 +12,7 @@ public class CrowdMember : MonoBehaviour {
     private bool _following;
     private bool _beached;
     private bool _fleeing;
+    private bool _captured;
     private GameObject _player;
     private Rigidbody2D _rb2d;
     private SpriteRenderer _sr;
@@ -53,7 +54,9 @@ public class CrowdMember : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log("CrowdMember touched by " + other.gameObject.tag + " (" + other.gameObject.name + ")");
+        if (_captured) {
+            return;
+        }
         if (other.gameObject.tag == "Player") {
             if (!_following && !_beached) {
                 _following = true;
@@ -66,6 +69,7 @@ public class CrowdMember : MonoBehaviour {
         } else if (other.gameObject.tag == "Beach") {
             _following = false;
             _beached = true;
+            _fleeing = false;
             _rb2d.velocity = Vector3.zero;
             _sr.color = new Color(_sr.color.r, _sr.color.g, _sr.color.b, 1.0f);
             _zombieTimer = zombieTime;
@@ -80,7 +84,9 @@ public class CrowdMember : MonoBehaviour {
             if (_beached) {
                 _game.ChangeStat(StatsType.Beached, -1);
             }
-            Destroy(gameObject, 0.5f);
+            _captured = true;
+            _game.ChangeStat(StatsType.Captured, +1);
+            Destroy(gameObject);
             Debug.Log("Picked up by the Police!");
         } else if (other.gameObject.tag == "Patrol") {
             if (_following) {
