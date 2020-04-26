@@ -1,9 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
-using System;
 
 public enum StatsType {
     Followers,
@@ -23,11 +21,25 @@ public class BeachBBQ : Singleton<BeachBBQ> {
     [SerializeField] Stat[] stats;
     [SerializeField] GameObject introScreen;
     [SerializeField] GameObject introFrame;
+    [SerializeField] GameObject winScreen;
+    [SerializeField] GameObject winFrame;
+    [SerializeField] int minCrowdSize = 10;
+    [SerializeField] int maxCrowdSize = 40;
+    [SerializeField] int minCrowdGathering = 4;
+    [SerializeField] int maxCrowdGathering = 12;
+    [SerializeField] float minTimeBetweenCrowds = 10.0f;
+    [SerializeField] float maxTimeBetweenCrowds = 25.0f;
+    [SerializeField] float crowdFieldSize = 2f;
+    [SerializeField] GameObject[] crowdPlayers;
+    [SerializeField] Transform[] crowdHotSpots;
 
     public bool Playing { get { return _playing; } }
 
     private GameController _gc;
     private bool _playing;
+    private int _totalCrowdMembers = 0;
+    private int _totalCrowdSize;
+    private int _activeCrowdMembers;
 
     public override void Awake() {
         base.Awake();
@@ -38,10 +50,17 @@ public class BeachBBQ : Singleton<BeachBBQ> {
         }
         introScreen.SetActive(true);
         introFrame.transform.localScale = Vector3.zero;
+        winScreen.SetActive(false);
+        winFrame.transform.localScale = Vector3.zero;
+    }
+
+    private void OnDestroy() {
+        _gc.OnInitGame -= InitGame;
     }
 
     private void InitGame() {
         Debug.Log("BeachBBQ - Init Game");
+        _totalCrowdSize = Random.Range(minCrowdSize, maxCrowdSize);
         LeanTween.delayedCall(1.0f, () => {
             LeanTween.scale(introFrame, Vector3.one, 0.5f);
         });
@@ -52,7 +71,44 @@ public class BeachBBQ : Singleton<BeachBBQ> {
             _gc.UpdateGameState(GameState.GameInitComplete);
             _playing = true;
             introScreen.SetActive(false);
+            StartCoroutine(CrowdGenerator());
         });
+    }
+
+    private void Win() {
+        _playing = false;
+        winScreen.SetActive(true);
+        LeanTween.delayedCall(1.0f, () => {
+            LeanTween.scale(winFrame, Vector3.one, 0.5f);
+        });
+    }
+
+    public void ReStartGame() {
+        LeanTween.scale(winFrame, Vector3.zero, 0.5f).setOnComplete(() => {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        });
+    }
+
+    IEnumerator CrowdGenerator() {
+        while (_totalCrowdMembers < _totalCrowdSize) {
+            Vector2 hotSpot = crowdHotSpots[Random.Range(0, crowdHotSpots.Length)].position;
+            int size = Random.Range(minCrowdGathering, maxCrowdGathering + 1);
+            for (int i = 0; i < size; i++) {
+                Vector2 pos = hotSpot + Random.insideUnitCircle * crowdFieldSize;
+                GameObject member = Instantiate(crowdPlayers[Random.Range(0, crowdPlayers.Length)], pos, Quaternion.identity);
+            }
+            _totalCrowdMembers += size;
+            _activeCrowdMembers += size;
+            yield return new WaitForSeconds(Random.Range(minTimeBetweenCrowds, maxTimeBetweenCrowds));
+        }
+    }
+
+    public void CrowdMemberCaptured() {
+        _activeCrowdMembers--;
+        if (_activeCrowdMembers <= 0) {
+            Debug.Log("You win!");
+            Win();
+        }
     }
 
     public void ChangeStat(StatsType type, int delta) {
@@ -64,6 +120,15 @@ public class BeachBBQ : Singleton<BeachBBQ> {
             }
         }
         Debug.LogError("Incorrect/Missing stat");
+    }
+
+    public int NumFollowers() {
+        for (int i = 0; i < stats.Length; i++) {
+            if (stats[i].type == StatsType.Followers) {
+                return stats[i].value;
+            }
+        }
+        return 0;
     }
 
     private void UpdateUI() {

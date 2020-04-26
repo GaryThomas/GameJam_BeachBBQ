@@ -22,7 +22,7 @@ public class GameController : Singleton<GameController> {
 
     public override void Awake() {
         base.Awake();
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
     }
 
     private void Start() {

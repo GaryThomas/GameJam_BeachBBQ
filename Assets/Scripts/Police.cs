@@ -23,6 +23,7 @@ public class Police : MonoBehaviour {
 
     private void OnDestroy() {
         _gc.OnBeginLevel -= BeginLevel;
+        _audio.Stop();
     }
 
     private void BeginLevel() {

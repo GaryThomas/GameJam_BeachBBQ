@@ -24,6 +24,7 @@ public class CrowdMember : MonoBehaviour {
         _rb2d = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
         _game = BeachBBQ.Instance;
+        _startPos = transform.position;
     }
 
     private void FixedUpdate() {

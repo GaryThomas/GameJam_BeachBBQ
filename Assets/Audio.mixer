@@ -21,6 +21,7 @@ AudioMixerController:
     - 96cc40e998b3e25e88432e1a47c7de44
     - dece3e6d71ca533e79e0a5594a3e4292
     - 8a62d01c1f3c0b6c3aa0982fd247fd49
+    - 8a562982b8ec12d1b9951d9cc652161b
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -36,6 +37,7 @@ AudioMixerGroupController:
   m_Children:
   - {fileID: 243938154867800684}
   - {fileID: 243944540980355648}
+  - {fileID: 243641246696173200}
   m_Volume: 407923cf87904586e8034a8d2f9f587f
   m_Pitch: 1bad76f9cef10b754937f6ea2454df67
   m_Effects:
@@ -67,8 +69,27 @@ AudioMixerSnapshotController:
   m_Name: Snapshot
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 78a4af232e662b87eb7d2321ed7a50fe
-  m_FloatValues: {}
+  m_FloatValues:
+    9e6e960e7ebb27ea886391bec01de25e: -12.6
   m_TransitionOverrides: {}
+--- !u!243 &243641246696173200
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Robot
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 8a562982b8ec12d1b9951d9cc652161b
+  m_Children: []
+  m_Volume: dc9a56a0c9b632912a2fb7a5406f982e
+  m_Pitch: 9500585cefce8f7c18ef5924109110fe
+  m_Effects:
+  - {fileID: 244401032912934938}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!243 &243938154867800684
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -105,6 +126,20 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &244401032912934938
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 07b4b620fd8c4f206bf587fe90a96580
+  m_EffectName: Attenuation
+  m_MixLevel: 8b06e305058e824fc8e9289d721d8b56
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &244414515596997318
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
