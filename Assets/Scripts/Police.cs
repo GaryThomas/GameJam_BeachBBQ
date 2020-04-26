@@ -64,11 +64,21 @@ public class Police : MonoBehaviour {
                 atWP = false;
                 LeanTween.move(gameObject, wayPoints[nextWP].position, patrolTimePerLeg).setOnComplete(() => { atWP = true; });
                 _currentWP = nextWP;
-                if (warningClip != null) {
+                if ((gameObject.tag == "Patrol") && (warningClip != null)) {
                     _audio.PlayOneShot(warningClip);
                 }
             } else {
                 yield return null;
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.tag == "CrowdMember") {
+            if ((gameObject.tag == "Police") && (warningClip != null)) {
+                if (!_audio.isPlaying) {
+                    _audio.PlayOneShot(warningClip);
+                }
             }
         }
     }
