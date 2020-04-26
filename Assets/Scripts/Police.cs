@@ -15,6 +15,10 @@ public class Police : MonoBehaviour {
         _gc.OnBeginLevel += BeginLevel;
     }
 
+    private void OnDestroy() {
+        _gc.OnBeginLevel -= BeginLevel;
+    }
+
     private void BeginLevel() {
         _currentWP = 0;
         transform.position = wayPoints[_currentWP].transform.position;
