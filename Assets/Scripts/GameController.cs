@@ -20,6 +20,11 @@ public class GameController : Singleton<GameController> {
 
     private GameState _state;
 
+    public override void Awake() {
+        base.Awake();
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void Start() {
         StartCoroutine(Game());
     }
