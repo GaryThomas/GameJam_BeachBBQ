@@ -21,8 +21,8 @@ public struct Stat {
 
 public class BeachBBQ : Singleton<BeachBBQ> {
     [SerializeField] Stat[] stats;
-    [SerializeField] GameObject initScreen;
-    [SerializeField] GameObject initFrame;
+    [SerializeField] GameObject introScreen;
+    [SerializeField] GameObject introFrame;
 
     public bool Playing { get { return _playing; } }
 
@@ -36,22 +36,22 @@ public class BeachBBQ : Singleton<BeachBBQ> {
         foreach (Stat stat in stats) {
             stat.container.SetActive(false);
         }
-        initScreen.SetActive(true);
-        initFrame.transform.localScale = Vector3.zero;
+        introScreen.SetActive(true);
+        introFrame.transform.localScale = Vector3.zero;
     }
 
     private void InitGame() {
         Debug.Log("BeachBBQ - Init Game");
         LeanTween.delayedCall(1.0f, () => {
-            LeanTween.scale(initFrame, Vector3.one, 0.5f);
+            LeanTween.scale(introFrame, Vector3.one, 0.5f);
         });
     }
 
     public void StartGame() {
-        LeanTween.scale(initFrame, Vector3.zero, 0.5f).setOnComplete(() => {
+        LeanTween.scale(introFrame, Vector3.zero, 0.5f).setOnComplete(() => {
             _gc.UpdateGameState(GameState.GameInitComplete);
             _playing = true;
-            initScreen.SetActive(false);
+            introScreen.SetActive(false);
         });
     }
 

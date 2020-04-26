@@ -16448,8 +16448,8 @@ MonoBehaviour:
     value: 0
     container: {fileID: 1051748915}
     textField: {fileID: 407304305}
-  initScreen: {fileID: 758570419}
-  initFrame: {fileID: 562730852}
+  introScreen: {fileID: 758570419}
+  introFrame: {fileID: 562730852}
 --- !u!4 &1841935628
 Transform:
   m_ObjectHideFlags: 0
