@@ -28,7 +28,7 @@ public class Player : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log("Player touched " + other.gameObject.tag + ", followers: " + _game.NumFollowers().ToString());
+        // Debug.Log("Player touched " + other.gameObject.tag + ", followers: " + _game.NumFollowers().ToString());
         if (other.gameObject.tag == "CrowdMember") {
             if (!_audio.isPlaying) {
                 _audio.PlayOneShot(invitation);

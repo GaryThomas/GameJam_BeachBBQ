@@ -68,13 +68,15 @@ public class CrowdMember : MonoBehaviour {
                 Debug.Log("Touched by player!");
             }
         } else if (other.gameObject.tag == "Beach") {
-            _following = false;
-            _beached = true;
+            if (_following) {
+                _game.ChangeStat(StatsType.Followers, -1);
+                _following = false;
+            }
             _fleeing = false;
             _rb2d.velocity = Vector3.zero;
             _sr.color = new Color(_sr.color.r, _sr.color.g, _sr.color.b, 1.0f);
             _zombieTimer = zombieTime;
-            _game.ChangeStat(StatsType.Followers, -1);
+            _beached = true;
             _game.ChangeStat(StatsType.Beached, +1);
             Debug.Log("Made it to the beach!");
         } else if (other.gameObject.tag == "Police") {
@@ -82,9 +84,9 @@ public class CrowdMember : MonoBehaviour {
             if (_following) {
                 _game.ChangeStat(StatsType.Followers, -1);
             }
-            if (_beached) {
-                _game.ChangeStat(StatsType.Beached, -1);
-            }
+            // if (_beached) {
+            //     _game.ChangeStat(StatsType.Beached, -1);
+            // }
             _captured = true;
             _game.ChangeStat(StatsType.Captured, +1);
             _game.CrowdMemberCaptured();
