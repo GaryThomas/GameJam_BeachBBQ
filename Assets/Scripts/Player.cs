@@ -9,12 +9,14 @@ public class Player : MonoBehaviour {
     private Vector3 _movement;
     private Rigidbody2D _rb2d;
     private AudioSource _audio;
+    private Animator _anim;
     private BeachBBQ _game;
 
     private void Awake() {
         _rb2d = GetComponent<Rigidbody2D>();
         _game = BeachBBQ.Instance;
         _audio = GetComponent<AudioSource>();
+        _anim = GetComponent<Animator>();
     }
 
     private void Update() {
@@ -26,6 +28,9 @@ public class Player : MonoBehaviour {
     private void FixedUpdate() {
         if (_game.Playing) {
             _rb2d.MovePosition(transform.position + _movement * moveSpeed * Time.fixedDeltaTime);
+            _anim.SetFloat("Speed", Mathf.Abs(_rb2d.velocity.magnitude));
+        } else {
+            _anim.SetFloat("Speed", 0);
         }
     }
 
