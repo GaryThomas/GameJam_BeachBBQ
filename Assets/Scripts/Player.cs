@@ -24,7 +24,9 @@ public class Player : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        _rb2d.MovePosition(transform.position + _movement * moveSpeed * Time.fixedDeltaTime);
+        if (_game.Playing) {
+            _rb2d.MovePosition(transform.position + _movement * moveSpeed * Time.fixedDeltaTime);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
