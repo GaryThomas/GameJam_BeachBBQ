@@ -23,6 +23,7 @@ public class BeachBBQ : Singleton<BeachBBQ> {
     [SerializeField] GameObject introFrame;
     [SerializeField] GameObject winScreen;
     [SerializeField] GameObject winFrame;
+    [SerializeField] TMP_Text winText;
     [SerializeField] int minCrowdSize = 10;
     [SerializeField] int maxCrowdSize = 40;
     [SerializeField] int minCrowdGathering = 4;
@@ -78,6 +79,7 @@ public class BeachBBQ : Singleton<BeachBBQ> {
     private void Win() {
         _playing = false;
         winScreen.SetActive(true);
+        winText.text = string.Format("{0} Made it to the beach!", GetStat(StatsType.Beached));
         LeanTween.delayedCall(1.0f, () => {
             LeanTween.scale(winFrame, Vector3.one, 0.5f);
         });
@@ -119,16 +121,21 @@ public class BeachBBQ : Singleton<BeachBBQ> {
                 return;
             }
         }
-        Debug.LogError("Incorrect/Missing stat");
+        Debug.LogError("ChangeStat: Incorrect/Missing stat");
+    }
+
+    public int GetStat(StatsType type) {
+        foreach (Stat stat in stats) {
+            if (stat.type == type) {
+                return stat.value;
+            }
+        }
+        Debug.LogError("GetStat: Incorrect/Missing stat");
+        return -1;
     }
 
     public int NumFollowers() {
-        for (int i = 0; i < stats.Length; i++) {
-            if (stats[i].type == StatsType.Followers) {
-                return stats[i].value;
-            }
-        }
-        return 0;
+        return GetStat(StatsType.Followers);
     }
 
     private void UpdateUI() {
