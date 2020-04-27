@@ -11,18 +11,25 @@ public class Player : MonoBehaviour {
     private AudioSource _audio;
     private Animator _anim;
     private BeachBBQ _game;
+    private Camera _cam;
 
     private void Awake() {
         _rb2d = GetComponent<Rigidbody2D>();
         _game = BeachBBQ.Instance;
         _audio = GetComponent<AudioSource>();
         _anim = GetComponent<Animator>();
+        _cam = Camera.main;
     }
 
     private void Update() {
-        float horiz = Input.GetAxis("Horizontal");
-        float vert = Input.GetAxis("Vertical");
-        _movement = new Vector3(horiz, vert, 0);
+        if (Input.GetMouseButton(0)) {
+            Vector3 pos = _cam.ScreenToWorldPoint(Input.mousePosition);
+            _movement = (pos - transform.position).normalized;
+        } else {
+            float horiz = Input.GetAxis("Horizontal");
+            float vert = Input.GetAxis("Vertical");
+            _movement = new Vector3(horiz, vert, 0);
+        }
     }
 
     private void FixedUpdate() {
