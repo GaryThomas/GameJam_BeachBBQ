@@ -62,9 +62,7 @@ public class BeachBBQ : Singleton<BeachBBQ> {
     private void InitGame() {
         Debug.Log("BeachBBQ - Init Game");
         _totalCrowdSize = Random.Range(minCrowdSize, maxCrowdSize);
-        LeanTween.delayedCall(1.0f, () => {
-            LeanTween.scale(introFrame, Vector3.one, 0.5f);
-        });
+        LeanTween.scale(introFrame, Vector3.one, 0.5f).setDelay(1.0f).setEaseInExpo();
     }
 
     public void StartGame() {
@@ -80,9 +78,8 @@ public class BeachBBQ : Singleton<BeachBBQ> {
         _playing = false;
         winScreen.SetActive(true);
         winText.text = string.Format("{0} Made it to the beach!", GetStat(StatsType.Beached));
-        LeanTween.delayedCall(1.0f, () => {
-            LeanTween.scale(winFrame, Vector3.one, 0.5f);
-        });
+        LeanTween.scale(winFrame, Vector3.one, 0.5f).setDelay(1.0f).setEaseInExpo();
+
     }
 
     public void ReStartGame() {
